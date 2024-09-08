@@ -1,3 +1,14 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+html {
+  font-size: 12px;
+  @apply text-ui-5;
+  @apply bg-violet-900;
+  @apply bg-gradient-to-br from-violet-900 to-blue-700;
+}
+
+body {
+  @apply min-h-screen w-screen;
+}
