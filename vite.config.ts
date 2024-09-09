@@ -4,6 +4,7 @@ import AutoImport from 'unplugin-auto-import/vite';
 import { defineConfig } from 'vite';
 
 export default defineConfig({
+  base: '/bevy_studio_mockup/',
   build: {
     target: 'esnext',
   },
