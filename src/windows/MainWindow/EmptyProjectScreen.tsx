@@ -12,18 +12,26 @@ type ScaffoldTemplate = 'default_bevy' | 'minimal_bevy' | '2d_game' | '3d_game';
 export function EmptyProjectScreen(
   { openProjectSettings }: EmptyProjectScreenProps,
 ) {
-  const { addProfile, setCurrentProfile } = useStudioContext();
+  const { addProfiles, setCurrentProfile } = useStudioContext();
+  const [profileToSet, setProfileToSet] = useState<string | null>(null);
 
   function scaffold(template: ScaffoldTemplate) {
     if (template === 'default_bevy') {
-      const profileName = addProfile('bevy_editor');
-      setCurrentProfile(profileName);
+      const profileName = addProfiles(['bevy_editor']);
+      setProfileToSet(profileName);
     }
     else {
-      const profileName = addProfile('project_code');
-      setCurrentProfile(profileName);
+      const profileName = addProfiles(['app_code', 'editor_code']);
+      setProfileToSet(profileName);
     }
   }
+
+  useEffect(() => {
+    if (profileToSet) {
+      setProfileToSet(null);
+      setCurrentProfile(profileToSet);
+    }
+  }, [profileToSet, setCurrentProfile]);
 
   return (
     <Panel className="mx-auto mt-12 w-[500px] p-5">

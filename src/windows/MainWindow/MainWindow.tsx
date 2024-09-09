@@ -5,7 +5,7 @@ import { TitleBar } from './TitleBar';
 import type { ProjectSettingsTemplate } from '../ProjectSettings/ProjectSettings';
 
 export default function MainWindow() {
-  const { currentProfile, project, setCurrentProfile } = useStudioContext();
+  const { currentProfile, project, setCurrentProfile, runState } = useStudioContext();
 
   const [settingsOpen, setSettingsOpen] = useState<boolean | ProjectSettingsTemplate>(false);
   function openProjectSettings(template?: ProjectSettingsTemplate) {
@@ -22,7 +22,19 @@ export default function MainWindow() {
     <OsWindow className="mx-12" noTitleBar>
       <TitleBar openProjectSettings={openProjectSettings} />
       <div className="flex h-[650px] flex-col bg-ui-3 p-2">
-        {currentProfile && currentProfile.mockupView === 'editor' && <Editor></Editor>}
+        {currentProfile && runState && runState.compiling && (
+          <div className="mt-20 flex items-center justify-center">
+            <IconSpinner className="mr-4 animate-spin" />
+            Compiling...
+          </div>
+        )}
+        {currentProfile && runState && runState.status === 'starting' && (
+          <div className="mt-20 flex items-center justify-center">
+            <IconSpinner className="mr-4 animate-spin" />
+            Starting...
+          </div>
+        )}
+        {currentProfile && runState && runState.initialized && currentProfile.mockupView === 'editor' && <Editor></Editor>}
         {!currentProfile && <EmptyProjectScreen openProjectSettings={openProjectSettings} />}
       </div>
 

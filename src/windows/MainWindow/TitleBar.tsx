@@ -40,10 +40,11 @@ export function TitleBar({ openProjectSettings }: TitleBarProps) {
 
 function ProfileStatus({ openProjectSettings }: { openProjectSettings: TitleBarProps['openProjectSettings'] }) {
   const { profiles } = useRequiredProject();
-  const { currentProfile, setCurrentProfile } = useStudioContext();
+  const { currentProfile, setCurrentProfile, runState } = useStudioContext();
 
   return (
     <div className="flex items-center space-x-1">
+      <span>{runState ? runState.compiling ? 'compiling' : runState.status : '...'}</span>
       {currentProfile && (
         <div>
           {currentProfile.type === 'binary' ? <IconCircleFilled className="size-6" /> : <IconCodeBracket className="size-6" />}

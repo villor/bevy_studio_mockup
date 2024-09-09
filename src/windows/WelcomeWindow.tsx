@@ -44,8 +44,8 @@ function Welcome({ setView }: { setView: (view: View) => void }) {
 function NewProject({ setView }: { setView: (view: View) => void }) {
   const { newProject } = useStudioContext();
 
-  const [name, setName] = useState('Game of the year');
-  const [dir, setDir] = useState('~/bevy/game_of_the_year');
+  const [name, setName] = useState('My Game');
+  const [dir, setDir] = useState('~/bevy/my_game');
 
   const inputRef = useFocusAndSelectOnMount();
 
